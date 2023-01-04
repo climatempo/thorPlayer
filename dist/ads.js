@@ -4,20 +4,27 @@
 // You may study, modify, and use this example for any purpose.
 // Note that this example is provided "as is", WITHOUT WARRANTY
 // of any kind either expressed or implied.
-
+var adTagUrl;
 var adsManager;
 var adsLoader;
 var adDisplayContainer;
 var intervalTimer;
+// let playButton
 var videoContent;
 
 /**
  * Initializes IMA setup.
  */
 function init() {
+  var playerDiv = document.querySelector("#thorPlayer");
+  adTagUrl = playerDiv.dataset.ad_tag_url;
   videoContent = document.getElementById('thorPlayerVideo');
+  setTimeout(function () {
+    if (videoContent.currentTime <= 2) {
+      playAds();
+    }
+  }, 1000);
   setUpIMA();
-  playAds();
 }
 
 /**
@@ -41,7 +48,7 @@ function setUpIMA() {
 
   // Request video ads.
   var adsRequest = new google.ima.AdsRequest();
-  adsRequest.adTagUrl = 'https://pubads.g.doubleclick.net/gampad/ads?' + 'iu=/21775744923/external/single_ad_samples&sz=640x480&' + 'cust_params=sample_ct%3Dlinear&ciu_szs=300x250%2C728x90&gdfp_req=1&' + 'output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=';
+  adsRequest.adTagUrl = adTagUrl;
 
   // Specify the linear and nonlinear slot sizes. This helps the SDK to
   // select the correct creative if multiple are returned.
@@ -73,7 +80,7 @@ function playAds() {
     // Initialize the ads manager. Ad rules playlist will start at this time.
     adsManager.init(640, 360, google.ima.ViewMode.NORMAL);
     // Call play to start showing the ad. Single video and overlay ads will
-    // start at this time; the call will be ignored for ad rules.
+    // start at this time the call will be ignored for ad rules.
     adsManager.start();
   } catch (adError) {
     // An error may be thrown if there was a problem with the VAST response.
@@ -130,7 +137,7 @@ function onAdEvent(adEvent) {
         // For a linear ad, a timer can be started to poll for
         // the remaining time.
         intervalTimer = setInterval(function () {
-          // Example: const remainingTime = adsManager.getRemainingTime();
+          // Example: const remainingTime = adsManager.getRemainingTime()
         }, 300); // every 300ms
       }
 
@@ -163,7 +170,7 @@ function onContentPauseRequested() {
   videoContent.pause();
   // This function is where you should setup UI for showing ads (for example,
   // display ad timer countdown, disable seeking and more.)
-  // setupUIForAds();
+  // setupUIForAds()
 }
 
 /**
@@ -174,7 +181,7 @@ function onContentResumeRequested() {
   // This function is where you should ensure that your UI is ready
   // to play content. It is the responsibility of the Publisher to
   // implement this function when necessary.
-  // setupUIForContent();
+  // setupUIForContent()
 }
 
 init();
