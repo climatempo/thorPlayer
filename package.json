@@ -1,0 +1,19 @@
+{
+  "name": "thor-player",
+  "version": "1.0.0",
+  "main": "src/thor_player.js",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "clean": "rimraf ./dist",
+    "start": "yarn clean && babel src --watch -d ./dist",
+    "build": "yarn clean && babel src -d ./dist"
+  },
+  "devDependencies": {
+    "@babel/core": "7.20.12",
+    "@babel/cli": "^7.20.7",
+    "@babel/preset-env": "^7.20.2",
+    "babel-minify": "^0.5.2",
+    "rimraf": "^3.0.2"
+  }
+}
