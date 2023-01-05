@@ -8,7 +8,3 @@ function togglePip() {
     video.requestPictureInPicture();
   }
 }
-var pipButton = document.querySelector('.pip');
-pipButton.addEventListener('click', function () {
-  togglePip();
-});

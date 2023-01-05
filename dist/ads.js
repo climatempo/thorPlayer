@@ -11,6 +11,8 @@ var adDisplayContainer;
 var intervalTimer;
 // let playButton
 var videoContent;
+var playerWidth;
+var playerHeight;
 
 /**
  * Initializes IMA setup.
@@ -18,6 +20,8 @@ var videoContent;
 function init() {
   var playerDiv = document.querySelector("#thorPlayer");
   adTagUrl = playerDiv.dataset.ad_tag_url;
+  playerWidth = playerDiv.dataset.width;
+  playerHeight = playerDiv.dataset.height;
   videoContent = document.getElementById('thorPlayerVideo');
   setTimeout(function () {
     if (videoContent.currentTime <= 2) {
@@ -78,7 +82,8 @@ function playAds() {
   adDisplayContainer.initialize();
   try {
     // Initialize the ads manager. Ad rules playlist will start at this time.
-    adsManager.init(640, 360, google.ima.ViewMode.NORMAL);
+    adsManager.init(playerWidth, playerHeight, google.ima.ViewMode.NORMAL);
+    adsManager.resize(playerWidth, playerHeight, google.ima.ViewMode.NORMAL);
     // Call play to start showing the ad. Single video and overlay ads will
     // start at this time the call will be ignored for ad rules.
     adsManager.start();

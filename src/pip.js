@@ -6,9 +6,3 @@ function togglePip() {
     video.requestPictureInPicture();
   }
 }
-
-const pipButton = document.querySelector('.pip')
-
-pipButton.addEventListener('click', () => {
-  togglePip()
-})
