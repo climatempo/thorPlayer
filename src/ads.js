@@ -141,6 +141,7 @@ function onAdEvent(adEvent) {
   const ad = adEvent.getAd()
   switch (adEvent.type) {
     case google.ima.AdEvent.Type.LOADED:
+      videoContent.controls = false
       // This is the first event sent for an ad - it is possible to
       // determine whether the ad is a video ad or an overlay.
       if (!ad.isLinear()) {
@@ -164,6 +165,7 @@ function onAdEvent(adEvent) {
       }
       break
     case google.ima.AdEvent.Type.COMPLETE:
+      videoContent.controls = true
       // This event indicates the ad has finished - the video player
       // can perform appropriate UI actions, such as removing the timer for
       // remaining time detection.
