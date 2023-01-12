@@ -6,8 +6,8 @@
   "type": "module",
   "scripts": {
     "clean": "rimraf ./dist",
-    "start": "yarn clean && babel src --watch -d ./dist",
-    "build": "yarn clean && babel src -d ./dist"
+    "start": "yarn clean && babel src --watch -d ./dist --copy-files",
+    "build": "yarn clean && babel src -d ./dist --copy-files"
   },
   "devDependencies": {
     "@babel/core": "7.20.12",
