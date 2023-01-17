@@ -1,4 +1,5 @@
 const makePlayer = () => {
+  console.log('Make Player')
   const playerDiv = document.querySelector("#thorPlayer")
 
   const videoUrl = playerDiv.dataset.video_url

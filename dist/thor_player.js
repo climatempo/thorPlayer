@@ -1,6 +1,7 @@
 "use strict";
 
 var makePlayer = function makePlayer() {
+  console.log('Make Player');
   var playerDiv = document.querySelector("#thorPlayer");
   var videoUrl = playerDiv.dataset.video_url;
   var height = playerDiv.dataset.height;
