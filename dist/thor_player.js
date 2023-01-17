@@ -1,31 +1,28 @@
 "use strict";
 
 var makePlayer = function makePlayer() {
-  console.log('Make Player');
+  console.log('Running Thor Player...');
   var playerDiv = document.querySelector("#thorPlayer");
   var videoUrl = playerDiv.dataset.video_url;
-  var height = playerDiv.dataset.height;
-  var width = playerDiv.dataset.width;
+  var isYoutube = playerDiv.hasAttribute("youtube");
   var player = document.createElement("video");
   player.id = "thorPlayerVideo";
   player.classList.add("video-js", "vjs-default-skin", "vjs-big-play-centered");
-  playerDiv.style.height = height;
-  playerDiv.style.width = width;
-  player.width = width;
-  player.height = height;
   player.controls = true;
   player.autoplay = true;
   player.muted = true;
+  if (isYoutube) {
+    player.setAttribute('data-setup', "{ \n      \"fluid\" : true,\n      \"techOrder\": [\"youtube\"], \n      \"sources\": [{ \n        \"type\": \"video/youtube\", \n        \"src\": \"".concat(videoUrl, "\"\n       }], \n       \"youtube\": { \n         \"iv_load_policy\": 1 \n       } \n     }"));
+  }
   playerDiv.appendChild(player);
   var videoJs = videojs("#thorPlayerVideo");
-  videoJs.src(videoUrl);
+  if (!isYoutube) videoJs.src(videoUrl);
   videoJs.fluid(true);
 };
 var initAd = function initAd() {
   var playerDiv = document.querySelector("#thorPlayer");
   var videoJs = videojs("#thorPlayerVideo");
   var adTagUrl = playerDiv.dataset.ad_tag_url + getKeyValues();
-  console.log(adTagUrl);
   videoJs.ima({
     id: "thorPlayerVideo",
     vpaidMode: google.ima.ImaSdkSettings.VpaidMode.INSECURE,
@@ -123,4 +120,5 @@ function removeSeats(text) {
 makePlayer();
 initAd();
 // faltam 2 data layers do picture in picture
+
 setAllDataLayers();

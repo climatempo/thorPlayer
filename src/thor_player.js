@@ -1,27 +1,39 @@
 const makePlayer = () => {
-  console.log('Make Player')
+  console.log('Running Thor Player...')
   const playerDiv = document.querySelector("#thorPlayer")
 
   const videoUrl = playerDiv.dataset.video_url
-  const height = playerDiv.dataset.height
-  const width = playerDiv.dataset.width
+  const isYoutube = playerDiv.hasAttribute("youtube");
 
   const player = document.createElement("video")
   player.id = "thorPlayerVideo"
   player.classList.add("video-js", "vjs-default-skin", "vjs-big-play-centered")
 
-  playerDiv.style.height = height
-  playerDiv.style.width = width
-  player.width = width
-  player.height = height
   player.controls = true
   player.autoplay = true
   player.muted = true
 
+  if ((isYoutube)) {
+    player.setAttribute('data-setup', `{ 
+      "fluid" : true,
+      "techOrder": ["youtube"], 
+      "sources": [{ 
+        "type": "video/youtube", 
+        "src": "${videoUrl}"
+       }], 
+       "youtube": { 
+         "iv_load_policy": 1 
+       } 
+     }`);
+  }
+
   playerDiv.appendChild(player)
 
   const videoJs = videojs("#thorPlayerVideo")
-  videoJs.src(videoUrl)
+
+  if(!isYoutube) 
+    videoJs.src(videoUrl)
+
   videoJs.fluid(true)
 }
 
@@ -31,7 +43,6 @@ const initAd = () => {
   const videoJs = videojs("#thorPlayerVideo")
 
   const adTagUrl = playerDiv.dataset.ad_tag_url + getKeyValues()
-  console.log(adTagUrl)
 
   videoJs.ima({
     id: "thorPlayerVideo",
@@ -100,14 +111,14 @@ const setAllDataLayers = () => {
 
 const getKeyValues = () => {
   const playerDiv = document.querySelector("#thorPlayer")
-  let keys = JSON.parse('['+playerDiv.dataset.key_values.replace(/'/g, '"')+']')
+  let keys = JSON.parse('[' + playerDiv.dataset.key_values.replace(/'/g, '"') + ']')
   keys = keys[0]
 
   let custParams = '&cust_params='
   keys.forEach(key => {
-    if(getMetaTag(key) != null && getMetaTag(key) != '' && getMetaTag(key) != 'null') {
-      custParams += `${key}%3D${getMetaTag(key)}%26`.replace( /\s/g, '' )
-    }      
+    if (getMetaTag(key) != null && getMetaTag(key) != '' && getMetaTag(key) != 'null') {
+      custParams += `${key}%3D${getMetaTag(key)}%26`.replace(/\s/g, '')
+    }
   })
 
   return custParams
@@ -135,20 +146,22 @@ function getMetaTag(name) {
   return removeSeats(content)
 }
 
-function removeSeats (text) {       
-  text = String(text).toLowerCase()                                                         
-  text = text.replace(new RegExp('[ÁÀÂÃ]','gi'), 'a')
-  text = text.replace(new RegExp('[ÉÈÊ]','gi'), 'e')
-  text = text.replace(new RegExp('[ÍÌÎ]','gi'), 'i')
-  text = text.replace(new RegExp('[ÓÒÔÕ]','gi'), 'o')
-  text = text.replace(new RegExp('[ÚÙÛ]','gi'), 'u')
-  text = text.replace(new RegExp('[Ç]','gi'), 'c')
-  text = text.replace( /\s/g, '' )
+function removeSeats(text) {
+  text = String(text).toLowerCase()
+  text = text.replace(new RegExp('[ÁÀÂÃ]', 'gi'), 'a')
+  text = text.replace(new RegExp('[ÉÈÊ]', 'gi'), 'e')
+  text = text.replace(new RegExp('[ÍÌÎ]', 'gi'), 'i')
+  text = text.replace(new RegExp('[ÓÒÔÕ]', 'gi'), 'o')
+  text = text.replace(new RegExp('[ÚÙÛ]', 'gi'), 'u')
+  text = text.replace(new RegExp('[Ç]', 'gi'), 'c')
+  text = text.replace(/\s/g, '')
   text = text.replace('-', '')
-  return text                  
+  return text
 }
 
 makePlayer()
+
 initAd()
 // faltam 2 data layers do picture in picture
+
 setAllDataLayers()
