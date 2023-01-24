@@ -1,3 +1,16 @@
 @import url("https://googleads.github.io/videojs-ima/node_modules/video.js/dist/video-js.min.css");
 @import url("https://googleads.github.io/videojs-ima/node_modules/videojs-contrib-ads/dist/videojs.ads.css");
 @import url("https://googleads.github.io/videojs-ima/dist/videojs.ima.css");
+
+
+.picture-in-picture {
+  width: 25%;
+  height: 25%;
+  position: fixed;
+  bottom: 10%;
+  right: 0%;
+  z-index: 99999999;
+  padding-left: 0px;
+  padding-right: 0px;
+  margin-bottom: 0px;
+}

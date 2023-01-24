@@ -86,6 +86,25 @@ var getKeyValues = function getKeyValues() {
   });
   return custParams;
 };
+var setPictureInpicture = function setPictureInpicture() {
+  var pictureInPictureDiv = document.querySelector("#picture-in-picture");
+  var playerDiv = document.querySelector("#thorPlayer");
+  var isPip = false;
+  document.addEventListener("DOMContentLoaded", function () {
+    window.addEventListener('scroll', function () {
+      var rect = pictureInPictureDiv.getBoundingClientRect();
+      if (rect.top <= 0 && !isPip) {
+        playerDiv.classList.add("picture-in-picture");
+        isPip = true;
+        setDataLayer('player', 'open_pip', '');
+      } else if (rect.top >= 0 && isPip) {
+        playerDiv.classList.remove("picture-in-picture");
+        isPip = false;
+        setDataLayer('player', 'close_pip', '');
+      }
+    });
+  });
+};
 function setDataLayer(video_context, video_action, error_name) {
   var video = videojs("#thorPlayerVideo");
   var video_url = video.currentSrc();
@@ -118,7 +137,7 @@ function removeSeats(text) {
   return text;
 }
 makePlayer();
+setPictureInpicture();
 initAd();
 // faltam 2 data layers do picture in picture
-
 setAllDataLayers();

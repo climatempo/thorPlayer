@@ -3,7 +3,7 @@ const makePlayer = () => {
   const playerDiv = document.querySelector("#thorPlayer")
 
   const videoUrl = playerDiv.dataset.video_url
-  const isYoutube = playerDiv.hasAttribute("youtube");
+  const isYoutube = playerDiv.hasAttribute("youtube")
 
   const player = document.createElement("video")
   player.id = "thorPlayerVideo"
@@ -24,14 +24,14 @@ const makePlayer = () => {
        "youtube": { 
          "iv_load_policy": 1 
        } 
-     }`);
+     }`)
   }
 
   playerDiv.appendChild(player)
 
   const videoJs = videojs("#thorPlayerVideo")
 
-  if(!isYoutube) 
+  if (!isYoutube)
     videoJs.src(videoUrl)
 
   videoJs.fluid(true)
@@ -124,6 +124,27 @@ const getKeyValues = () => {
   return custParams
 }
 
+const setPictureInpicture = () => {
+  let pictureInPictureDiv = document.querySelector("#picture-in-picture")
+  let playerDiv = document.querySelector("#thorPlayer")
+  let isPip = false
+
+  document.addEventListener("DOMContentLoaded", () => {
+    window.addEventListener('scroll', () => {
+      const rect = pictureInPictureDiv.getBoundingClientRect()
+      if (rect.top <= 0 && !isPip) {
+        playerDiv.classList.add("picture-in-picture")
+        isPip = true
+        setDataLayer('player', 'open_pip', '')
+      } else if (rect.top >= 0 && isPip) {
+        playerDiv.classList.remove("picture-in-picture")
+        isPip = false
+        setDataLayer('player', 'close_pip', '')
+      }
+    })
+  })
+}
+
 function setDataLayer(video_context, video_action, error_name) {
   const video = videojs("#thorPlayerVideo")
   const video_url = video.currentSrc()
@@ -160,8 +181,7 @@ function removeSeats(text) {
 }
 
 makePlayer()
-
+setPictureInpicture()
 initAd()
 // faltam 2 data layers do picture in picture
-
 setAllDataLayers()
