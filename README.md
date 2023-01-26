@@ -5,8 +5,8 @@ Thor Player is a player developed by climatempo for use on the portal and partne
 To get Thoir player working, some steps must be followed:
 
 - The first step is to import the javascript file and css file of the player:  
- **<script src="https://climatempo.github.io/thorPlayer/dist/thor_player.js"></script>**  
- **<style src="https://climatempo.github.io/thorPlayer/dist/thor_player.css"></style>**  
+ **<script src="https://climatempo.github.io/thorPlayer/dist/thor_player.js"> </script>**  
+ **<style src="https://climatempo.github.io/thorPlayer/dist/thor_player.css"> </style>**  
  
  - The second step is to create the div where the player will be rendered: 
  ```
