@@ -17,6 +17,7 @@ To get Thoir player working, some steps must be followed:
       data-key_values="['ab', 'regiao', 'uf', 'idCidade', 'tmin', 'tmax', 'cmomento', 'tmomento', 'icoman',
       'icotar','iconoi','icodia','chuvamm','urmax','uvmax','agricola','litoranea','secao','website','vitaminaD',
       'qualidadeAr','resfriado','mosquito','raiosUV','pele']">
+      <button id="closeThorPlayerBtn">x</button>
     </div> 
   </div>
  ```

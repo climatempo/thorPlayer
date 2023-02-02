@@ -14,3 +14,21 @@
   padding-right: 0px;
   margin-bottom: 0px;
 }
+
+#closeThorPlayerBtn {
+  position: absolute;
+  background-color: gray;
+  color: white;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  font-size: 16px;
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999;
+}

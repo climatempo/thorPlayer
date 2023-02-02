@@ -35,8 +35,16 @@ const makePlayer = () => {
     videoJs.src(videoUrl)
 
   videoJs.fluid(true)
-}
 
+  videoJs.on('ended', function() {
+    removePictureInpicture()
+  })
+
+  const closeThorPlayerBtn = document.querySelector("#closeThorPlayerBtn")
+  closeThorPlayerBtn.addEventListener('click', () => {
+    removePictureInpicture()
+  })
+}
 
 const initAd = () => {
   const playerDiv = document.querySelector("#thorPlayer")
@@ -145,6 +153,11 @@ const setPictureInpicture = () => {
   })
 }
 
+const removePictureInpicture = () => {
+  let pictureInPictureDiv = document.querySelector("#picture-in-picture")
+  pictureInPictureDiv.removeAttribute('id')
+}
+
 function setDataLayer(video_context, video_action, error_name) {
   const video = videojs("#thorPlayerVideo")
   const video_url = video.currentSrc()
@@ -183,5 +196,4 @@ function removeSeats(text) {
 makePlayer()
 setPictureInpicture()
 initAd()
-// faltam 2 data layers do picture in picture
 setAllDataLayers()

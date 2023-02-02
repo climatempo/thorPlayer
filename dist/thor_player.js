@@ -18,6 +18,13 @@ var makePlayer = function makePlayer() {
   var videoJs = videojs("#thorPlayerVideo");
   if (!isYoutube) videoJs.src(videoUrl);
   videoJs.fluid(true);
+  videoJs.on('ended', function () {
+    removePictureInpicture();
+  });
+  var closeThorPlayerBtn = document.querySelector("#closeThorPlayerBtn");
+  closeThorPlayerBtn.addEventListener('click', function () {
+    removePictureInpicture();
+  });
 };
 var initAd = function initAd() {
   var playerDiv = document.querySelector("#thorPlayer");
@@ -105,6 +112,10 @@ var setPictureInpicture = function setPictureInpicture() {
     });
   });
 };
+var removePictureInpicture = function removePictureInpicture() {
+  var pictureInPictureDiv = document.querySelector("#picture-in-picture");
+  pictureInPictureDiv.removeAttribute('id');
+};
 function setDataLayer(video_context, video_action, error_name) {
   var video = videojs("#thorPlayerVideo");
   var video_url = video.currentSrc();
@@ -139,5 +150,4 @@ function removeSeats(text) {
 makePlayer();
 setPictureInpicture();
 initAd();
-// faltam 2 data layers do picture in picture
 setAllDataLayers();
