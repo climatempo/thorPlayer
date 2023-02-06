@@ -105,13 +105,13 @@ var setPictureInpicture = function setPictureInpicture() {
       var rect = pictureInPictureDiv.getBoundingClientRect();
       if (rect.top <= 0 && !isPip) {
         playerDiv.classList.add("picture-in-picture");
-        isPip = true;
         closeThorPlayerBtn.style.display = "flex !important";
+        isPip = true;
         setDataLayer('player', 'open_pip', '');
       } else if (rect.top >= 0 && isPip) {
         playerDiv.classList.remove("picture-in-picture");
-        isPip = false;
         closeThorPlayerBtn.style.display = "none";
+        isPip = false;
         setDataLayer('player', 'close_pip', '');
       }
     });
