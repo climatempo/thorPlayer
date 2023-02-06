@@ -36,13 +36,13 @@ const makePlayer = () => {
 
   videoJs.fluid(true)
 
-  videoJs.on('ended', function() {
-    removePictureInpicture()
-  })
+  // videoJs.on('ended', function() {
+  //   removePictureInpicture()
+  // })
 
   const closeThorPlayerBtn = document.querySelector("#closeThorPlayerBtn")
   closeThorPlayerBtn.addEventListener('click', () => {
-    removePictureInpicture()
+    alert('Fechar Pip')
   })
 }
 
@@ -135,6 +135,7 @@ const getKeyValues = () => {
 const setPictureInpicture = () => {
   let pictureInPictureDiv = document.querySelector("#picture-in-picture")
   let playerDiv = document.querySelector("#thorPlayer")
+  let closeThorPlayerBtn = document.querySelector("#closeThorPlayerBtn")
   let isPip = false
 
   document.addEventListener("DOMContentLoaded", () => {
@@ -143,20 +144,22 @@ const setPictureInpicture = () => {
       if (rect.top <= 0 && !isPip) {
         playerDiv.classList.add("picture-in-picture")
         isPip = true
+        closeThorPlayerBtn.style.display = "flex !important"
         setDataLayer('player', 'open_pip', '')
       } else if (rect.top >= 0 && isPip) {
         playerDiv.classList.remove("picture-in-picture")
         isPip = false
+        closeThorPlayerBtn.style.display = "none"
         setDataLayer('player', 'close_pip', '')
       }
     })
   })
 }
 
-const removePictureInpicture = () => {
-  let pictureInPictureDiv = document.querySelector("#picture-in-picture")
-  pictureInPictureDiv.removeAttribute('id')
-}
+// const removePictureInpicture = () => {
+//   let pictureInPictureDiv = document.querySelector("#picture-in-picture")
+//   pictureInPictureDiv.removeAttribute('id')
+// }
 
 function setDataLayer(video_context, video_action, error_name) {
   const video = videojs("#thorPlayerVideo")

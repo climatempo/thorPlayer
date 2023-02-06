@@ -18,12 +18,14 @@ var makePlayer = function makePlayer() {
   var videoJs = videojs("#thorPlayerVideo");
   if (!isYoutube) videoJs.src(videoUrl);
   videoJs.fluid(true);
-  videoJs.on('ended', function () {
-    removePictureInpicture();
-  });
+
+  // videoJs.on('ended', function() {
+  //   removePictureInpicture()
+  // })
+
   var closeThorPlayerBtn = document.querySelector("#closeThorPlayerBtn");
   closeThorPlayerBtn.addEventListener('click', function () {
-    removePictureInpicture();
+    alert('Fechar Pip');
   });
 };
 var initAd = function initAd() {
@@ -96,6 +98,7 @@ var getKeyValues = function getKeyValues() {
 var setPictureInpicture = function setPictureInpicture() {
   var pictureInPictureDiv = document.querySelector("#picture-in-picture");
   var playerDiv = document.querySelector("#thorPlayer");
+  var closeThorPlayerBtn = document.querySelector("#closeThorPlayerBtn");
   var isPip = false;
   document.addEventListener("DOMContentLoaded", function () {
     window.addEventListener('scroll', function () {
@@ -103,19 +106,23 @@ var setPictureInpicture = function setPictureInpicture() {
       if (rect.top <= 0 && !isPip) {
         playerDiv.classList.add("picture-in-picture");
         isPip = true;
+        closeThorPlayerBtn.style.display = "flex !important";
         setDataLayer('player', 'open_pip', '');
       } else if (rect.top >= 0 && isPip) {
         playerDiv.classList.remove("picture-in-picture");
         isPip = false;
+        closeThorPlayerBtn.style.display = "none";
         setDataLayer('player', 'close_pip', '');
       }
     });
   });
 };
-var removePictureInpicture = function removePictureInpicture() {
-  var pictureInPictureDiv = document.querySelector("#picture-in-picture");
-  pictureInPictureDiv.removeAttribute('id');
-};
+
+// const removePictureInpicture = () => {
+//   let pictureInPictureDiv = document.querySelector("#picture-in-picture")
+//   pictureInPictureDiv.removeAttribute('id')
+// }
+
 function setDataLayer(video_context, video_action, error_name) {
   var video = videojs("#thorPlayerVideo");
   var video_url = video.currentSrc();
