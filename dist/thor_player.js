@@ -3,6 +3,8 @@
 var makePlayer = function makePlayer() {
   console.log('Running Thor Player...');
   var playerDiv = document.querySelector("#thorPlayer");
+  var closeThorPlayerBtn = document.querySelector("#closeThorPlayerBtn");
+  var pipDiv = document.querySelector("#picture-in-picture");
   var videoUrl = playerDiv.dataset.video_url;
   var isYoutube = playerDiv.hasAttribute("youtube");
   var player = document.createElement("video");
@@ -18,14 +20,8 @@ var makePlayer = function makePlayer() {
   var videoJs = videojs("#thorPlayerVideo");
   if (!isYoutube) videoJs.src(videoUrl);
   videoJs.fluid(true);
-
-  // videoJs.on('ended', function() {
-  //   removePictureInpicture()
-  // })
-
-  var closeThorPlayerBtn = document.querySelector("#closeThorPlayerBtn");
   closeThorPlayerBtn.addEventListener('click', function () {
-    alert('Fechar Pip');
+    playerDiv.classList.remove("picture-in-picture");
   });
 };
 var initAd = function initAd() {
@@ -98,14 +94,14 @@ var getKeyValues = function getKeyValues() {
 var setPictureInpicture = function setPictureInpicture() {
   var pictureInPictureDiv = document.querySelector("#picture-in-picture");
   var playerDiv = document.querySelector("#thorPlayer");
-  var closeThorPlayerBtn = document.querySelector("#closeThorPlayerBtn");
+  var closeThorPlayerBtn = document.getElementById("closeThorPlayerBtn");
   var isPip = false;
   document.addEventListener("DOMContentLoaded", function () {
     window.addEventListener('scroll', function () {
       var rect = pictureInPictureDiv.getBoundingClientRect();
       if (rect.top <= 0 && !isPip) {
         playerDiv.classList.add("picture-in-picture");
-        closeThorPlayerBtn.style.display = "flex !important";
+        closeThorPlayerBtn.style.display = "flex";
         isPip = true;
         setDataLayer('player', 'open_pip', '');
       } else if (rect.top >= 0 && isPip) {
@@ -117,12 +113,6 @@ var setPictureInpicture = function setPictureInpicture() {
     });
   });
 };
-
-// const removePictureInpicture = () => {
-//   let pictureInPictureDiv = document.querySelector("#picture-in-picture")
-//   pictureInPictureDiv.removeAttribute('id')
-// }
-
 function setDataLayer(video_context, video_action, error_name) {
   var video = videojs("#thorPlayerVideo");
   var video_url = video.currentSrc();
